@@ -70,7 +70,7 @@ _set_position: function(position){
     ET.fire("POSITION_UPDATED");
     debug_message(intervalCounter+" positie lat:"+position.coords.latitude+" long:"+position.coords.longitude);
 }
-
+}
 
 
 // Controleer de locaties en verwijs naar een andere pagina als we op een locatie zijn
