@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Web app from scratch</title>
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
 
-    <p>test</p>
-<input type="text" id="user-input-field">
-<button type="button" onclick="getUserInput()">Submit</button>
+    <header>
+<!--    <h1>Moodvies</h1>-->
+    <nav>
+       <ul id="navList">
+           <li><a href="#start">Home</a></li>
+           <li><a href="#search">Zoek</a></li>
+       </ul>
+
+    </nav>
+    </header>
+
+    <main>
+  <!-- <section class="startScreen       hide     " id="start"> -->
+        <section class="startScreen" id="start">
+            <h2>Ladieda</h2>
+        </section>
+
+        <section class="bp hide" id="search">
+              <h2>How do you feel?</h2>
+                <p>emoticons</p>
+
+            <input type="text" id="user-input-field">
+            <button type="submit" onclick="getUserQuery()">Submit</button>
 
 
+        <article id="queryResult">
 
+        </article>
+        </section>
+    </main>
+
+<script src="static/routie.js"></script>
 <script src="static/aja-min.js"></script>
 <script src="static/app.js"></script>
 
