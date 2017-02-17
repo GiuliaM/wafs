@@ -1,17 +1,15 @@
+/* Algemeen */
 body{
+    background-color: #333333;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    font-family: sans-serif;
+    font-size: 1em;
     margin: 0;
     padding: 0;
-}
-
-p{
-    font-family: sans-serif;
-}
-
-li{
-    color: orange;
-    font-family: sans-serif;
 }
 
 h1, h2{
@@ -19,13 +17,17 @@ h1, h2{
     padding: 0;
 }
 
-section{
-    background-color: #A4B0F5;
+h2{
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
 }
 
+/* Navigatie */
 nav{
-    background: #807182;
+    background: #1EB4F4;
     display: flex;
+    height: 5em;
     flex-direction: row;
     order: 0;
     text-align: center;
@@ -54,18 +56,100 @@ nav ul li a{
 }
 
 
-.start{
-background-color: pink;
-height: 100vh;
-justify-content: center;
-width: 100vw;
+.hide {
+    display: none;
 }
 
-.hide{
-display: none;
+
+/* Search */
+section {
+    border-top: 1px solid #807182;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100vw;
 }
+
+div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5em;
+    margin-top: 5em;
+    width: 100vw;
+}
+
+.login {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+#user-input-field {
+    font-size: 1em;
+    padding-bottom: 0.7em;
+    padding-top: 0.7em;
+}
+
+/* Userquery */
+button[type="submit"] {
+    height: 2.7em;
+    background: none;
+    border: 0.2em white solid;
+    font-size: 1em;
+/*    font-weight: bold;*/
+    color: white;
+    text-transform: uppercase;
+}
+
+/*
+section article{
+    flex-grow: 1;
+    margin: .3rem;
+    padding: .5rem 0 2rem;
+    width: calc(35% - .3rem);
+    position: relative;
+}
+*/
+
+/* Emoticons */
+svg {
+    height: 2.8em;
+    display: block;
+    margin: 0 auto;
+}
+
+label {
+    display: inline-block;
+    width: 5em;
+    text-align: center;
+}
+
+input[name="emotion"] {
+    display: none;
+}
+
+input[name="emotion"] + label svg {
+    transform: scale(1);
+    transition: 500ms ease;
+}
+
+input[name="emotion"]:checked + label svg {
+    transform: scale(2);
+}
+
+.emoji{
+    cursor: pointer;
+}
+
+
+
 /*
 section: nth-child(2){
     background-color: #F58F29;
 }
 */
+
+/* EMOCHECK IS VOOR DE RADIO VAN DE EMOJI */
