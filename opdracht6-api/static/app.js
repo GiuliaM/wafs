@@ -2,7 +2,6 @@
 (function() {
 
     "use strict";
-
     /* In deze var roep je de functie routes.init op*/
     var userQuery = document.getElementById("user-input-field");
     var app = {
@@ -27,6 +26,10 @@
 //                    sections.showMovies('happy')
 //                }
 
+                //
+                //            'search/bang': function() {
+                //                sections.toggle(location.hash)
+                //            },
             })
         }
     };
@@ -56,6 +59,7 @@
 //                sad: 2,
 //                ootw: 13
 //            }
+//
 //            var genreID = genres[mood];
 //
 //            // haal data op met genreID
@@ -84,8 +88,8 @@
 
                 data.results.map(function(element) {
                     html += '<p>' + element.title + '</p>' + '<img src= "' + 'http://image.tmdb.org/t/p/w500' + element.poster_path + '"/>';
-//                    element.genre_ids.map(function(idmap){
-//                    console.log(idmap);
+                    element.genre_ids.map(function(idmap){
+                    console.log(idmap);
                 });
 
             });
