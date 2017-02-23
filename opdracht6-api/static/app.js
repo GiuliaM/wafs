@@ -31,6 +31,7 @@
                 //                sections.toggle(location.hash)
                 //            },
             })
+//           ; location.hash = '#start';
         }
     };
 
@@ -84,12 +85,28 @@
             .on('success', function(data) {
                 console.log(data);
                 //html
-                var html = '';
+
+//                function returnHtml(){
+//                    return
+//                    <section class="searchResult">
+//                        <h1></h1>
+//                }
+
+
+
+            var html = '';
 
                 data.results.map(function(element) {
-                    html += '<p>' + element.title + '</p>' + '<img src= "' + 'http://image.tmdb.org/t/p/w500' + element.poster_path + '"/>';
+                 html += '<div class="searchResult" id="'+ element.id +'"> <a href="#start/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + 'http://image.tmdb.org/t/p/w500' + element.poster_path + '"/></div></a>';
                     element.genre_ids.map(function(idmap){
                     console.log(idmap);
+
+
+
+
+//                    html += <h1> + element.title + </h1> + '<img src= "' + 'http://image.tmdb.org/t/p/w500' + element.poster_path + '"/>';
+//                    element.genre_ids.map(function(idmap){
+//                    console.log(idmap);
                 });
 
             });
@@ -107,6 +124,49 @@
 //
 //    consol.log
 //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
