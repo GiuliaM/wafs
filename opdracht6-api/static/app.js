@@ -6,7 +6,7 @@
     var config = {
         apiKey: '6a1e8b6419fffff5e3744e2c3cd74df6',
         searchApi: 'https://api.themoviedb.org/3/search/movie?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&query=',
-        posterUrl: 'http://image.tmdb.org/t/p/w500'
+        posterUrl: 'http://image.tmdb.org/t/p/w500/'
 
     }
 
@@ -85,10 +85,12 @@
             function posterCheck(){
 
                 if (poster_path !== null) {
-                  return poster_path.url;
+                  return "./img/noposter.png"
+
 
                 }else {
-                  return"./img/noposter.png";
+                    config.posterUrl + poster_path;
+                  return;
 
                 }
             }
