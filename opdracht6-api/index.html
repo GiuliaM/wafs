@@ -83,7 +83,7 @@
 
 
 <script id = "overview-template" type="text/x-handlebars-template">
-        {{#each artObjects}}
+        {{#each results}}
 
                 <div id = "{{element.id}}" class ="{{searchResult}}">
                          <h1>{{element.title}}</h1>
@@ -101,13 +101,13 @@
         {{/each}}
         </script>
 
-<script id = "detailTemplate" type="text/x-handlebars-template">
+<script id = "detail-template" type="text/x-handlebars-template">
 
     <div id="=movieDetails" class="movieInfo" role="section-content">
 
-            <h1>{{element.title}}</h1>
-            <img src="{{artImgUrl}}"><img>
-            <p>{{artDescription}}</p>
+            <h1>{{title}}</h1>
+            <img src="{{poster_path}}"><img>
+            <p>{{overview}}</p>
 
     </div>
 </script>

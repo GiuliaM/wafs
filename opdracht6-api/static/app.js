@@ -7,7 +7,6 @@
         apiKey: '6a1e8b6419fffff5e3744e2c3cd74df6',
         searchApi: 'https://api.themoviedb.org/3/search/movie?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&query=',
         posterUrl: 'http://image.tmdb.org/t/p/w500/'
-
     }
 
 
@@ -82,43 +81,70 @@
             .url(apiUrl)
             .on('success', function(data) {
 
-            function posterCheck(){
-
-                if (poster_path !== null) {
-                  return "./img/noposter.png"
-
-
-                }else {
-                    config.posterUrl + poster_path;
-                  return;
-
-                }
-            }
+//            function posterCheck(){
+//
+//                if (poster_path !== null) {
+//                  return "./img/noposter.png"
+//                }else {
+//                    config.posterUrl + poster_path;
+//                  return;
+//
+//                }
+//            }
 
                 console.log(data);
 
             var html = '';
 
-                // With this function you tell what you want to show when a query is requested.
-                data.results.map(function(element) {
-                 html += '<div class="searchResult" id="'+ element.id +'"> <a href="#start/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div></a>';
-
-//                 if (typeof element.poster_path === 'undefined' || element.poster_path === 404) {
-//                            element.poster_path = "img/noposter.png"
-//                        }
-
-
-
-                    element.genre_ids.map(function(idmap){
-                    console.log(idmap);
-
-                });
-
-            });
+            // With this function you tell what you want to show when a query is requested.
+//            data.results.map(function(element) {
+//                 html += '<div class="searchResult" id="'+ element.id +'"> <a href="#start/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div></a>';
+//
+//                element.genre_ids.map(function(idmap){
+//                console.log(idmap);
+//
+//                });
+//
+//            });
                 document.getElementById('queryResult').innerHTML = html;
+
+
+             var source = document.getElementById("overview-template").innerHTML;
+                    //content
+
+                    var template = Handlebars.compile(source);
+                    var htmlContent = template(data);
+
+                   document.getElementById('detail-template').innerHTML = htmlContent;
+
+
+
+
+
+
+
+
+
             })
             .go();
     }
+
+
+
+}());
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    var showDetails = document.getElementById(element.id);
 //    showDetails.addEventListener('click', function(){
@@ -152,31 +178,6 @@
 //            })
 //            .go();
 //    }
-}());
-
-
-//if checked controleer dan of happy array overeenkomt met genres_id
-
-//function check() {
-//    document.getElementById("user-input-happy").checked = true;
-//
-//    consol.log
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
