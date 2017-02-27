@@ -16,6 +16,7 @@
        <ul id="navList">
            <li><a href="#start">Home</a></li>
            <li><a href="#search">Mood</a></li>
+           <li><a href="#showDetails">Details</a></li>
        </ul>
 
     </nav>
@@ -86,7 +87,7 @@
         {{#each results}}
 
                 <div id = "{{element.id}}" class ="{{searchResult}}">
-                         <h1>{{element.title}}</h1>
+                         <h1>{{movieTitle}}</h1>
 
 <!--
                     {{#if webImage}}
@@ -95,7 +96,7 @@
                         <img src="static/images/background_black.svg"><img>
                     {{/if}}
 -->
-                        <p>{{title}}</p>
+                        <p>{{movieSummary}}</p>
 
                 </div>
         {{/each}}
