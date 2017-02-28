@@ -11,6 +11,7 @@
 
     var app = {
         init: function() {
+            //snippet: search
             routes.init();
         }
     };
@@ -27,7 +28,7 @@
                     getData.details(id);
                 }
             });
-           location.hash = '#start';
+           location.hash = '#movies';
         }
     };
 
@@ -35,20 +36,46 @@
         //  With this function you tell to take the query from the input field and how to construct the new url.
         overview: function () {
             // call to api movie list
-            sections.overview(data);
+//            var searchInput = document.getElementById('user-input-field').value;
+            var apiUrl = config.searchApi + 'john';
+            console.log(apiUrl);
+
+            //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
+            aja()
+                .url(apiUrl)
+                .on('success', function(data) {
+
+                    //snippet: default cover image
+
+                    console.log(data,"aja");
+                    sections.overview(data);
+                })
+            .go();
         },
+
         details: function (id) {
             // call to api movie detail by id
 
             sections.details(data);
-        },
+        }
     };
 
     var sections = {
         overview: function (data) {
+//            console.log(data);
             // render html with data
+            var html = '';
+
+                // With this function you tell what you want to show when a query is requested.
+                data.results.map(function(element) {
+                     html += '<div class="searchResult" id="'+ element.id +'"> <a href="#movies/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div></a>';
+
+                });
+                    document.getElementById('queryResult').innerHTML = html;
+
             this.toggle();
         },
+
         details: function (data) {
             //render html with data
             this.toggle();
@@ -65,11 +92,11 @@
                 var sectionList = sections[i];
                 var sectionsId = "#" + sections[i].id;
 
-                if (sectionsId === route) {
-                    sectionList.classList.remove("hide");
-                } else {
-                    sectionList.classList.add("hide");
-                }
+//                if (sectionsId === route) {
+//                    sectionList.classList.remove("hide");
+//                } else {
+//                    sectionList.classList.add("hide");
+//                }
             }
         }
     };
@@ -79,6 +106,27 @@
 
 }());
 
+
+
+
+
+
+/* snippets */
+// snippet default cover image
+//function imageAvailable(){
+//  if (poster_path !== null){
+//      return config.posterUrl+ poster_path;
+//  }else{
+//    return "./img/noposter.png";
+//  }
+//}
+
+//snippet search
+// If you click on the search button, start function getUserQuery
+//var submitSearch = document.getElementById('submit-search');
+//            submitSearch.addEventListener('click', function(){
+//                getData.overview();
+//            });
 
 
 
@@ -143,39 +191,8 @@
 
 
 /* zoeken
-    query: function () {
-            var searchInput = document.getElementById('user-input-field').value;
-            var apiUrl = config.searchApi + 'john';
 
-            //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
-            aja()
-                .url(apiUrl)
-                .on('success', function(data) {
 
-    //
-    //            function imageAvailable(){
-    //                      if (poster_path !== null){
-    //                          return config.posterUrl+ poster_path;
-    //                      }else{
-    //                        return "./img/noposter.png";
-    //                      }
-    //                    }
-
-                    console.log(data);
-
-                var html = '';
-
-                // With this function you tell what you want to show when a query is requested.
-                data.results.map(function(element) {
-                     html += '<div class="searchResult" id="'+ element.id +'"> <a href="#start/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div></a>';
-
-                    element.genre_ids.map(function(idmap){
-                    console.log(idmap);
-
-                    });
-
-                });
-                    document.getElementById('queryResult').innerHTML = html;
 
 
                  var source = document.getElementById("overview-template").innerHTML;
@@ -195,14 +212,10 @@
 
 
                 })
-                .go();
+
         }
 
-// If you click on the search button, start function getUserQuery
-    var submitSearch = document.getElementById('submit-search');
-    submitSearch.addEventListener('click', function(){
-        getData.query();
-    })
+
 
 */
 
@@ -213,7 +226,9 @@
 
 
 
-
+//                    element.genre_ids.map(function(idmap){
+//                    console.log(idmap);
+//                    });
 
 
 
