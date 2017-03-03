@@ -7,13 +7,22 @@
         apiKey: '?api_key=6a1e8b6419fffff5e3744e2c3cd74df6',
         searchApi: 'https://api.themoviedb.org/3/search/movie?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&query=',
         posterUrl: 'http://image.tmdb.org/t/p/w500/',
-        detailPage: 'https://api.themoviedb.org/3/movie/'
+        detailPage: 'https://api.themoviedb.org/3/movie/',
+//        filterUrl: 'https://api.themoviedb.org/3/genre/35',
+        submitSearch: document.getElementById('submit-search'),
+        detailSection: document.getElementById('details')
     };
 
     var app = {
         init: function() {
             //snippet: search
+            //If you click on the search button, start function getUserQuery
+
+            config.submitSearch.addEventListener('click', function() {
+                getData.overview();
+            });
             routes.init();
+
         }
     };
 
@@ -22,24 +31,28 @@
             routie({
                 'movies': function() {
                     // data.get('movies');
-                    getData.overview();
+                    //                    getData.overview();
+                    sections.toggle(location.hash);
+                    console.log('Youre at the movies');
                 },
 
                 'movies/:id': function(id) {
+                    sections.toggle(location.hash);
                     getData.details(id);
+                    console.log('Youre at the detailpage');
                 }
             });
-           location.hash = '#movies';
+//            location.hash = '#movies';
         }
     };
 
-    var getData  = {
+    var getData = {
         //  With this function you tell to take the query from the input field and how to construct the new url.
-        overview: function () {
+        overview: function() {
             // call to api movie list
-//            var searchInput = document.getElementById('user-input-field').value;
-            var apiUrl = config.searchApi + 'john';
-//            console.log(apiUrl);
+            var searchInput = document.getElementById('user-input-field').value;
+            var apiUrl = config.searchApi + searchInput;
+            console.log(apiUrl);
 
             //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
             aja()
@@ -48,87 +61,108 @@
 
                     //snippet: default cover image
 
-//                    console.log(data,"aja");
+                    //                    console.log(data,"aja");
                     sections.overview(data);
                 })
-            .go();
+                .go();
         },
 
-        details: function (id) {
+        details: function(id) {
             // call to api movie detail by id
             var detailUrl = config.detailPage + id + config.apiKey;
-//            console.log(detailUrl);
+            //            console.log(detailUrl);
 
-             aja()
+            aja()
                 .url(detailUrl)
                 .on('success', function(data) {
 
-                    console.log(data,"You see me");
+                    console.log(data, "You see me");
                     sections.details(data);
                 })
-            .go();
-        }
+                .go();
+        },
+
+//         filter: function() {
+//            // call to api movie detail by id
+//            var filterPage = '35';
+//            //            console.log(detailUrl);
+//
+//             if (element.genre_id === '35') {
+//                 genreID =
+//             };
+//
+//            aja()
+//                .url(detailUrl)
+//                .on('success', function(data) {
+//
+//                    console.log(data, "You see me");
+//                    sections.filter(data);
+//                })
+//                .go();
+//        }
 
     };
 
     var sections = {
-        overview: function (data) {
-//            console.log(data);
+        overview: function(data) {
+            //            console.log(data);
             // render html with data
             var html = '';
 
-                // With this function you tell what you want to show when a query is requested.
-                data.results.map(function(element) {
-                     html += '<div class="searchResult" id="'+ element.id +'"> <a href="#movies/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div></a>';
+            // With this function you tell what you want to show when a query is requested.
+            data.results.map(function(element) {
+                var posterPath;
+                if (element.poster_path !== null) {
+                    posterPath = config.posterUrl + element.poster_path
+                } else {
+                    posterPath = "img/noposter.png";
+                }
 
-                });
+                html += '<div class="searchResult" id="' + element.id + '"> <a href="#movies/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
+            });
 
-                // snippet default cover image
-//                function imageAvailable(){
-//                    if (poster_path !== null){
-//                        return config.posterUrl+ poster_path;
-//                  }else {
-//                        poster_path = "img/noposter.png";
-//                  }
-//                }
-                    document.getElementById('queryResult').innerHTML = html;
-
-            this.toggle();
+            document.getElementById('queryResult').innerHTML = html;
         },
 
-        details: function (data) {
+        details: function(detail) {
             //render html with data
             var htmlDetail = '';
 
-            function idAvailable(){
-                if (element.id !== null){
-                    htmlDetail += '<div class="detailResult" id="'+ element.id +'"> <h1>' + element.title + '</h1> <img src= "' + config.posterUrl + element.poster_path + '"/></div>';
-              }else {
-                    console.log("werk mee");
-              }
+            var posterPath;
+            if (detail.poster_path !== null) {
+                posterPath = config.posterUrl + detail.poster_path
+            } else {
+                posterPath = "img/noposter.png";
             }
 
-                    document.getElementById('showDetails').innerHTML = htmlDetail;
+            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="#movies"> Go back to overview</a> </div> </div>';
 
-            this.toggle();
+            console.log(htmlDetail);
+
+            document.getElementById('showDetails').innerHTML = htmlDetail;
+
         },
 
         toggle: function(route /* this is location.hash */ ) {
             var sections = document.querySelectorAll('main section');
             console.log(sections);
-            var i;
-            var sectionList;
-            var sectionsId;
 
-            for (i = 0; i < sections.length; i++) {
+            for (var i = 0; i < sections.length; i++) {
                 var sectionList = sections[i];
                 var sectionsId = "#" + sections[i].id;
 
-//                if (sectionsId === route) {
-//                    sectionList.classList.remove("hide");
-//                } else {
-//                    sectionList.classList.add("hide");
-//                }
+                if (sectionsId === route) {
+                    sectionList.classList.remove("hide");
+                    console.log(sectionsId);
+                    console.log(route);
+
+                } else if (route.length > 7) {
+                    console.log("true")
+                    sectionList.classList.add("hide");
+                    config.detailSection.classList.remove('hide');
+                } else {
+                    sectionList.classList.add("hide");
+                }
             }
         }
     };
@@ -137,8 +171,6 @@
 
 
 }());
-
-
 
 
 
@@ -159,15 +191,6 @@
 //            submitSearch.addEventListener('click', function(){
 //                getData.overview();
 //            });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -254,27 +277,6 @@
 
 
 
-
-
-
-
 //                    element.genre_ids.map(function(idmap){
 //                    console.log(idmap);
 //                    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
