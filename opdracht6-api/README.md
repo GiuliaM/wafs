@@ -1,3 +1,12 @@
-My API isn't done yet. I tried to make the api work with radio buttons (emoji), but I couldn't figure out how to connect them to the arrays of genre id's that i made. That has cost me a lot of time, so I was unable to fix everything before the deadline.
+My API isn't done yet. Figuring out how to make an detailpage.
 
 https://giuliam.github.io/wafs/opdracht6-api/?#start
+
+
+<h1> Object Model </h1>
+
+<img src="img/ObjectModel.png" alt="Object Model of API"/>
+
+<h1> Flow Chart</h1>
+
+<img src="img/flowchart.png" alt="Flowchart of API"/>
