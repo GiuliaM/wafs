@@ -1,6 +1,6 @@
 My API isn't done yet. Figuring out how to make an detailpage.
 
-https://giuliam.github.io/wafs/opdracht6-api/?#start
+https://giuliam.github.io/wafs/opdracht6-api/?#movies
 
 
 <h1> Object Model </h1>
