@@ -17,9 +17,7 @@
 
     var app = {
         init: function() {
-            //snippet: search
             //If you click on the search button, start function getUserQuery
-
             config.submitSearch.addEventListener('click', function(event) {
                 event.preventDefault();
                 getData.overview();
@@ -51,6 +49,12 @@
                     getData.genre();
                     console.log('Youre at Mooooooodvie');
                 },
+
+                'genre/:id': function(id){
+                    sections.toggle(location.hash);
+                    getData.details(id);
+                    console.log('Youre at the genredetailpage');
+                }
             });
         }
     };
@@ -67,8 +71,6 @@
             aja()
                 .url(apiUrl)
                 .on('success', function(data) {
-
-                    //snippet: default cover image
                     sections.overview(data);
                 })
                 .go();
@@ -94,19 +96,16 @@
                var checked = this.querySelector('[name="emotion"]:checked').value;
               console.log(checked);
 
-              //snippet genreUrl
+//              var genreUrl = config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc';
+//              console.log(genreUrl);
 
               aja()
-                .url(config.genrePage + checked + '&' + config.apiKey)
+                .url(config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc')
                 .on('success', function(data) {
-
-                    //snippet: default cover image
                     sections.genre(data);
                 })
                 .go();
           });
-
-            console.log(config.genreURL);
         }
     };
 
@@ -142,7 +141,7 @@
                 posterPath = "img/noposter.png";
             }
 
-            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="#movies"> Go back to overview</a> </div> </div>';
+            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="javascript:history.back()"> Go back to overview</a> </div> </div>';
 
             console.log(htmlDetail);
 
@@ -198,165 +197,3 @@
 
 
 }());
-
-
-
-
-/* snippets */
-// snippet default cover image
-//function imageAvailable(){
-//  if (poster_path !== null){
-//      return config.posterUrl+ poster_path;
-//  }else{
-//    return "./img/noposter.png";
-//  }
-//}
-
-//snippet search
-// If you click on the search button, start function getUserQuery
-//var submitSearch = document.getElementById('submit-search');
-//            submitSearch.addEventListener('click', function(){
-//                getData.overview();
-//            });
-
-
-//snippet genreUrl
-//              var genreUrl =  config.genrePage + checked + '&' + config.apiKey;
-//              console.log(genreUrl);
-
-
-//    var showDetails = document.getElementById(queryResult);
-//    showDetails.addEventListener('click', function(){
-//        getDetails();
-//    })
-//
-//    function getDetails(selectMovieOverview) {
-//        var movieItem = document.getElementById('showDetails').value;
-//        var apiUrlDetails = 'https://api.themoviedb.org/3/movie/'+element.movie_id+'?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&append_to_response=videos';
-//
-
-
-//
-//if(getMovieOverview === true){
-//  selectMovieOverview.addEventListener('click', function(event){
-//                event.preventDefault();
-//
-//                getDetails(event.target.parentElement.id);
-//                routes.init();
-//              });
-//}
-
-
-
-//
-//
-//        //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
-//        aja()
-//            .url(apiUrlDetails)
-//            .on('success', function(data) {
-//                console.log(data);
-//                console.log("details zijn er");
-//
-//            var htmlDetail = '';
-//
-////                // With this function you tell what you want to show when a query is requested.
-////                data.results.map(function(element) {
-////                     html += '<div class="searchResult" id="'+ element.id +'"> <a href="#start/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + 'http://image.tmdb.org/t/p/w500' + element.poster_path + '"/></div></a>';
-////                    element.genre_ids.map(function(idmap){
-////                    console.log(idmap);
-////                });
-////
-////            });
-//                document.getElementById('showDetails').innerHTML = html;
-//            })
-//            .go();
-//    }
-
-
-
-
-/* zoeken
-
-
-
-
-                 var source = document.getElementById("overview-template").innerHTML;
-                        //content
-                    var content = {
-                            movieTitle: results.title,
-    //                        moviePoster: imageAvailable(),
-                            movieSummary: results.overview
-                            }
-
-
-                        var template = Handlebars.compile(source);
-                        var htmlContent = template(data);
-
-                       document.getElementById('detail-template').innerHTML = htmlContent;
-
-
-
-                })
-
-        }
-
-
-
-*/
-
-
-
-
-//                    element.genre_ids.map(function(idmap){
-//                    console.log(idmap);
-//                    });
-
-
-// filter function snippet
-
-//         filter: function() {
-//            // call to api movie detail by id
-//            var filterValue = '35';
-//            //            console.log(detailUrl);
-//
-//             if (element.genre_id === '35') {
-//                 genreID =
-//             };
-//
-//            aja()
-//                .url(detailUrl)
-//                .on('success', function(data) {
-//
-//                    console.log(data, "You see me");
-//                    sections.filter(data);
-//                })
-//                .go();
-//        }
-//          filter: function(data){
-//             var self = this;
-//            config.genreForm.addEventListener('click', function() {
-//
-//              var filterValue = this.value;
-//              function getFilters(check) {
-//                  console.log(filterValue);
-//                  return check.genre_ids == filterValue;
-//              }
-//
-//              var filterData = data.filter(getFilters);
-//              config.genreResult.innerHTML > filterData;
-//              sections.filterHtml(filterData);
-//              console.log(filterData);
-//              self.filterBudget(filterData);
-//  //            self.filterMeters(filterData);
-//
-//                aja()
-//                .url(detailUrl)
-//                .on('success', function(data) {
-//
-//                    console.log(data, "You see me");
-//                    sections.filter(data);
-//                })
-//                .go();
-//
-//              })
-//            }
