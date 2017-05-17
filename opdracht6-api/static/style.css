@@ -124,7 +124,7 @@ article {
     flex-wrap: wrap;
 }
 
-.searchResult {
+.searchResult, .genreResult {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -135,17 +135,17 @@ article {
     margin: 1.5em;
 }
 
-.searchResult h1 {
+.searchResult h1, .genreResult h1 {
     background-color: #1EB4F4;
     padding: 0.4em;
     position: absolute;
 }
 
-.searchResult a {
+.searchResult a, .genreResult a {
     color: white;
 }
 
-.searchResult img {
+.searchResult img, .genreResult img {
     box-shadow: 5px 3px 9px #1b1b1b;
     height: 34em;
     width: 100%;

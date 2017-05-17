@@ -4,13 +4,15 @@
     "use strict";
     /* In this var you call the function routes.init*/
     var config = {
-        apiKey: '?api_key=6a1e8b6419fffff5e3744e2c3cd74df6',
+        apiKey: 'api_key=6a1e8b6419fffff5e3744e2c3cd74df6',
         searchApi: 'https://api.themoviedb.org/3/search/movie?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&query=',
+        genrePage:'https://api.themoviedb.org/3/discover/movie?with_genres=',
         posterUrl: 'http://image.tmdb.org/t/p/w500/',
         detailPage: 'https://api.themoviedb.org/3/movie/',
 //        filterUrl: 'https://api.themoviedb.org/3/genre/35',
         submitSearch: document.getElementById('submit-search'),
-        detailSection: document.getElementById('details')
+        detailSection: document.getElementById('details'),
+        genreForm: document.getElementById('genreRB')
     };
 
     var app = {
@@ -18,7 +20,8 @@
             //snippet: search
             //If you click on the search button, start function getUserQuery
 
-            config.submitSearch.addEventListener('click', function() {
+            config.submitSearch.addEventListener('click', function(event) {
+                event.preventDefault();
                 getData.overview();
             });
             routes.init();
@@ -28,10 +31,11 @@
 
     var routes = {
         init: function() {
+            window.location.hash = 'movies';
             routie({
                 'movies': function() {
-                    // data.get('movies');
-                    //                    getData.overview();
+//                     getData.overview('movies');
+//                    getData.overview();
                     sections.toggle(location.hash);
                     console.log('Youre at the movies');
                 },
@@ -40,9 +44,14 @@
                     sections.toggle(location.hash);
                     getData.details(id);
                     console.log('Youre at the detailpage');
-                }
+                },
+
+                'genre': function() {
+                    sections.toggle(location.hash);
+                    getData.genre();
+                    console.log('Youre at Mooooooodvie');
+                },
             });
-//            location.hash = '#movies';
         }
     };
 
@@ -60,8 +69,6 @@
                 .on('success', function(data) {
 
                     //snippet: default cover image
-
-                    //                    console.log(data,"aja");
                     sections.overview(data);
                 })
                 .go();
@@ -69,8 +76,8 @@
 
         details: function(id) {
             // call to api movie detail by id
-            var detailUrl = config.detailPage + id + config.apiKey;
-            //            console.log(detailUrl);
+            var detailUrl = config.detailPage + id + '?' + config.apiKey;
+            console.log(detailUrl);
 
             aja()
                 .url(detailUrl)
@@ -82,25 +89,25 @@
                 .go();
         },
 
-//         filter: function() {
-//            // call to api movie detail by id
-//            var filterPage = '35';
-//            //            console.log(detailUrl);
-//
-//             if (element.genre_id === '35') {
-//                 genreID =
-//             };
-//
-//            aja()
-//                .url(detailUrl)
-//                .on('success', function(data) {
-//
-//                    console.log(data, "You see me");
-//                    sections.filter(data);
-//                })
-//                .go();
-//        }
+        genre: function() {
+          var form = document.getElementById('genreRB'); form.addEventListener('change', function(event) {
+               var checked = this.querySelector('[name="emotion"]:checked').value;
+              console.log(checked);
 
+              //snippet genreUrl
+
+              aja()
+                .url(config.genrePage + checked + '&' + config.apiKey)
+                .on('success', function(data) {
+
+                    //snippet: default cover image
+                    sections.genre(data);
+                })
+                .go();
+          });
+
+            console.log(config.genreURL);
+        }
     };
 
     var sections = {
@@ -141,6 +148,26 @@
 
             document.getElementById('showDetails').innerHTML = htmlDetail;
 
+        },
+
+        genre: function(data) {
+            //            console.log(data);
+            // render html with data
+            var htmlGenre = '';
+
+            // With this function you tell what you want to show when a query is requested.
+            data.results.map(function(element) {
+                var posterPath;
+                if (element.poster_path !== null) {
+                    posterPath = config.posterUrl + element.poster_path
+                } else {
+                    posterPath = "img/noposter.png";
+                }
+
+                htmlGenre += '<div class="genreResult" id="' + element.id + '"> <a href="#genre/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
+            });
+
+            document.getElementById('showGenre').innerHTML = htmlGenre;
         },
 
         toggle: function(route /* this is location.hash */ ) {
@@ -193,6 +220,9 @@
 //            });
 
 
+//snippet genreUrl
+//              var genreUrl =  config.genrePage + checked + '&' + config.apiKey;
+//              console.log(genreUrl);
 
 
 //    var showDetails = document.getElementById(queryResult);
@@ -280,3 +310,53 @@
 //                    element.genre_ids.map(function(idmap){
 //                    console.log(idmap);
 //                    });
+
+
+// filter function snippet
+
+//         filter: function() {
+//            // call to api movie detail by id
+//            var filterValue = '35';
+//            //            console.log(detailUrl);
+//
+//             if (element.genre_id === '35') {
+//                 genreID =
+//             };
+//
+//            aja()
+//                .url(detailUrl)
+//                .on('success', function(data) {
+//
+//                    console.log(data, "You see me");
+//                    sections.filter(data);
+//                })
+//                .go();
+//        }
+//          filter: function(data){
+//             var self = this;
+//            config.genreForm.addEventListener('click', function() {
+//
+//              var filterValue = this.value;
+//              function getFilters(check) {
+//                  console.log(filterValue);
+//                  return check.genre_ids == filterValue;
+//              }
+//
+//              var filterData = data.filter(getFilters);
+//              config.genreResult.innerHTML > filterData;
+//              sections.filterHtml(filterData);
+//              console.log(filterData);
+//              self.filterBudget(filterData);
+//  //            self.filterMeters(filterData);
+//
+//                aja()
+//                .url(detailUrl)
+//                .on('success', function(data) {
+//
+//                    console.log(data, "You see me");
+//                    sections.filter(data);
+//                })
+//                .go();
+//
+//              })
+//            }
