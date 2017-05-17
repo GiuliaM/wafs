@@ -1,5 +1,5 @@
 /* Algemeen */
-body{
+body {
     background-color: #333333;
     box-sizing: border-box;
     color: white;
@@ -12,26 +12,26 @@ body{
     padding: 0;
 }
 
-h1, h2{
+h1, h2 {
     margin: 0;
     padding: 0;
 }
 
-h2{
+h2 {
     font-size: 1.5em;
     margin-bottom: 0.5em;
     text-transform: uppercase;
 }
 
 /* Navigatie */
-#logo{
+#logo {
     align-items: center;
     display: flex;
     margin-left: 2%;
     margin-right: 1%;
 }
 
-nav{
+nav {
     background: #1EB4F4;
     display: flex;
     height: 5em;
@@ -41,14 +41,14 @@ nav{
     width: 100vw;
 }
 
-nav ul{
+nav ul {
     align-items: center;
     display: flex;
     flex-direction: row;
     padding: 0;
 }
 
-nav ul li{
+nav ul li {
     color: white;
     display: inline;
     flex-direction: row;
@@ -57,18 +57,16 @@ nav ul li{
     width: 100%;
 }
 
-nav ul li a{
+nav ul li a {
     color: white;
     font-size: 1.4em;
     font-weight: 400;
     text-decoration: none;
 }
 
-
 .hide {
     display: none;
 }
-
 
 /* Search */
 section {
@@ -137,7 +135,7 @@ article {
     margin: 1.5em;
 }
 
-.searchResult h1{
+.searchResult h1 {
     background-color: #1EB4F4;
     padding: 0.4em;
     position: absolute;
@@ -207,11 +205,11 @@ input[name="emotion"]:checked + label svg {
     justify-content: flex-start;
 }
 
-.detailResult img{
+.detailResult img {
     max-height: 30em;
 }
 
-.detailResult .detailBlok{
+.detailResult .detailBlok {
     padding-left: 2em;
     width: 50%;
 }
