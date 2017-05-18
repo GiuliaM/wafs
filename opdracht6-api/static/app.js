@@ -33,8 +33,6 @@
             window.location.hash = 'movies';
             routie({
                 'movies': function() {
-//                     getData.overview('movies');
-//                    getData.overview();
                     sections.toggle(location.hash);
                     console.log('Youre at the movies');
                 },
