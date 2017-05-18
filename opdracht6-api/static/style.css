@@ -155,15 +155,26 @@ article {
     width: 100%;
 }
 
+.noResults {
+    margin-top: 0;
+}
+
+.noResults h2 {
+    margin-left: 3em;
+}
+
 /* Emoticons */
 genreRB {
     margin-top: 0.5em;
 }
 
 svg {
-    height: 2.8em;
     display: block;
     margin: 0 auto;
+}
+
+#genreRB svg {
+    height: 2.8em;
 }
 
 label {
@@ -235,4 +246,65 @@ input[name="emotion"]:checked + label svg {
     color: #1EB4F4;
     margin-bottom: 0;
     font-size: 1em;
+}
+
+/* Loading spinner source:http://tobiasahlin.com/spinkit/ */
+.spinner {
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    width: 70px;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #1EB4F4;
+
+  border-radius: 100%;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+
+dialog {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid silver;
+    border-radius: .5em;
+}
+dialog:not([open]) {
+    display: none;
 }

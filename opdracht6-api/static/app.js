@@ -12,7 +12,8 @@
 //        filterUrl: 'https://api.themoviedb.org/3/genre/35',
         submitSearch: document.getElementById('submit-search'),
         detailSection: document.getElementById('details'),
-        genreForm: document.getElementById('genreRB')
+        genreForm: document.getElementById('genreRB'),
+//        errorSection: document.getElementById('error')
     };
 
     var app = {
@@ -55,6 +56,12 @@
                     getData.details(id);
                     console.log('Youre at the genredetailpage');
                 }
+
+//                '404': function(){
+//                    sections.toggle(location.hash);
+//                    getData.error();
+//                    console.log('Youre at the 404');
+//                }
             });
         }
     };
@@ -62,17 +69,22 @@
     var getData = {
         //  With this function you tell to take the query from the input field and how to construct the new url.
         overview: function() {
-            // call to api movie list
+            var queryResult = document.getElementById('queryResult');
             var searchInput = document.getElementById('user-input-field').value;
-            var apiUrl = config.searchApi + searchInput;
-            console.log(apiUrl);
 
-            //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
+            this.toggleLoading('#spinner-search');
+
+            // aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
+            var apiUrl = config.searchApi + searchInput;
             aja()
                 .url(apiUrl)
                 .on('success', function(data) {
+                    getData.toggleLoading('#spinner-search');
                     sections.overview(data);
                 })
+//               .on('40x', function(response){// 'x' means any number (404, 400, etc. will match)
+//                    sections.error(data);
+//                })
                 .go();
         },
 
@@ -81,10 +93,10 @@
             var detailUrl = config.detailPage + id + '?' + config.apiKey;
             console.log(detailUrl);
 
+
             aja()
                 .url(detailUrl)
                 .on('success', function(data) {
-
                     console.log(data, "You see me");
                     sections.details(data);
                 })
@@ -92,9 +104,16 @@
         },
 
         genre: function() {
-          var form = document.getElementById('genreRB'); form.addEventListener('change', function(event) {
+            var form = config.genreForm;
+            form.addEventListener('change', function(event) {
                var checked = this.querySelector('[name="emotion"]:checked').value;
-              console.log(checked);
+               console.log(checked);
+
+                document.querySelectorAll('.genreResult').forEach(function(result) {
+                    result.parentNode.removeChild(result);
+                });
+
+               getData.toggleLoading('#spinner-genre');
 
 //              var genreUrl = config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc';
 //              console.log(genreUrl);
@@ -102,19 +121,43 @@
               aja()
                 .url(config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc')
                 .on('success', function(data) {
+                    getData.toggleLoading('#spinner-genre');
                     sections.genre(data);
                 })
                 .go();
           });
+        },
+        toggleLoading: function(id) {
+            document.querySelector(id).classList.toggle("hide");
         }
+
+//        error: function() {
+//            var error = config.errorSection;
+//            var errorUrl = "http://127.0.0.1:52443/opdracht6-api/index.html#404";
+//
+//            //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
+//            aja()
+//                .url(errorUrl)
+//                .on('success', function(data) {
+//                    sections.error(data);
+//                })
+//                .on('40x', function(response){// 'x' means any number (404, 400, etc. will match)
+//                    sections.error(data);
+//                })
+//                .go();
+//        },
     };
 
     var sections = {
         overview: function(data) {
-            //            console.log(data);
             // render html with data
             var html = '';
 
+            if (data.results.length === 0) {
+                         var html = '';
+                        html += '<div class="noResults"><h2>No results found</h2> <img src= "img/noresults.svg"> </div>';
+                        console.log ("geen resultaat");
+                    }
             // With this function you tell what you want to show when a query is requested.
             data.results.map(function(element) {
                 var posterPath;
@@ -152,21 +195,41 @@
         genre: function(data) {
             //            console.log(data);
             // render html with data
-            var htmlGenre = '';
+            var results = data.results.reduce(function(accumulator, element) {
+                var posterPath = element.poster_path ? config.posterUrl + element.poster_path : "img/noposter.png";
+                return accumulator + `
+                    <div class="genreResult" id="${element.id}">
+                        <a href="#genre/${element.id}">
+                            <h1>${element.title}</h1>
+                            <img src= "${posterPath}"/>
+                        </a>
+                    </div>`;
+            }, ''); // '' kan ook een 0, [] etc zijn bijv 1000 --> '' is de dom/accumulator
 
-            // With this function you tell what you want to show when a query is requested.
-            data.results.map(function(element) {
-                var posterPath;
-                if (element.poster_path !== null) {
-                    posterPath = config.posterUrl + element.poster_path
-                } else {
-                    posterPath = "img/noposter.png";
-                }
+//            var htmlGenre = '';
+//
+//            // With this function you tell what you want to show when a query is requested.
+//            data.results.map(function(element) {
+//                var posterPath;
+//                if (element.poster_path !== null) {
+//                    posterPath = config.posterUrl + element.poster_path
+//                } else {
+//                    posterPath = "img/noposter.png";
+//                }
+//
+//                htmlGenre += '<div class="genreResult" id="' + element.id + '"> <a href="#genre/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
+//            });
 
-                htmlGenre += '<div class="genreResult" id="' + element.id + '"> <a href="#genre/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
-            });
+            document.getElementById('showGenre').insertAdjacentHTML('beforeend', results);
+        },
 
-            document.getElementById('showGenre').innerHTML = htmlGenre;
+        error: function(data) {
+            var htmlError = '';
+
+
+                htmlError += '<div class="errorResult"> + <h2>Oops, Something went wrong!</h2><img src= "img/404.svg"/> </div></a>';
+
+            document.getElementById('showError').innerHTML = htmlError;
         },
 
         toggle: function(route /* this is location.hash */ ) {
