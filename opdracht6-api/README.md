@@ -7,6 +7,10 @@ The second way is based on your mood (Moodvie). You have to click the emoticon t
 
 <img src="img/mood.png" alt="Mood with results"/>
 
+Besides the functions I added some feedback for the users. While waiting the user wil see a loading spinner and if the user has a query without results this will be displayed:
+
+<img src="img/noresult.png" alt="Feedback no results"/>
+
 [Demo](https://giuliam.github.io/wafs/opdracht6-api/#movies)
 
 ### Features
@@ -19,6 +23,7 @@ The second way is based on your mood (Moodvie). You have to click the emoticon t
 - 404 handling
 
 <img src="img/404h.png" alt="404 page"/>
+
 
 ## Object Model
 
