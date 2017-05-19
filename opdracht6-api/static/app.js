@@ -9,7 +9,6 @@
         genrePage:'https://api.themoviedb.org/3/discover/movie?with_genres=',
         posterUrl: 'http://image.tmdb.org/t/p/w500/',
         detailPage: 'https://api.themoviedb.org/3/movie/',
-//        filterUrl: 'https://api.themoviedb.org/3/genre/35',
         submitSearch: document.getElementById('submit-search'),
         detailSection: document.getElementById('details'),
         genreForm: document.getElementById('genreRB'),
@@ -221,14 +220,14 @@
             document.getElementById('showGenre').insertAdjacentHTML('beforeend', results);
         },
 
-        error: function(data) {
-            var htmlError = '';
-
-
-                htmlError += '<div class="errorResult"> + <h2>Oops, Something went wrong!</h2><img src= "img/404.svg"/> </div></a>';
-
-            document.getElementById('showError').innerHTML = htmlError;
-        },
+//        error: function(data) {
+//            var htmlError = '';
+//
+//
+//                htmlError += '<div class="errorResult"> + <h2>Oops, Something went wrong!</h2><img src= "img/404.svg"/> </div></a>';
+//
+//            document.getElementById('showError').innerHTML = htmlError;
+//        },
 
         toggle: function(route /* this is location.hash */ ) {
             var sections = document.querySelectorAll('main section');
