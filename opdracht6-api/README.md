@@ -16,7 +16,7 @@ The second way is based on your mood (Moodvie). You have to click the emoticon t
 ### Wishlist
 - User to decide what mood fits to genre
 - Show more movies (now 20)
-- 404 handeling
+- 404 handling
 
 <img src="img/404h.png" alt="404 page"/>
 

@@ -7,12 +7,11 @@
         apiKey: 'api_key=6a1e8b6419fffff5e3744e2c3cd74df6',
         searchApi: 'https://api.themoviedb.org/3/search/movie?api_key=6a1e8b6419fffff5e3744e2c3cd74df6&query=',
         genrePage:'https://api.themoviedb.org/3/discover/movie?with_genres=',
-        posterUrl: 'http://image.tmdb.org/t/p/w500/',
         detailPage: 'https://api.themoviedb.org/3/movie/',
+        posterUrl: 'http://image.tmdb.org/t/p/w500/',
         submitSearch: document.getElementById('submit-search'),
         detailSection: document.getElementById('details'),
-        genreForm: document.getElementById('genreRB'),
-//        errorSection: document.getElementById('error')
+        genreForm: document.getElementById('genreRB')
     };
 
     var app = {
@@ -53,12 +52,6 @@
                     getData.details(id);
                     console.log('Youre at the genredetailpage');
                 }
-
-//                '404': function(){
-//                    sections.toggle(location.hash);
-//                    getData.error();
-//                    console.log('Youre at the 404');
-//                }
             });
         }
     };
@@ -79,9 +72,6 @@
                     getData.toggleLoading('#spinner-search');
                     sections.overview(data);
                 })
-//               .on('40x', function(response){// 'x' means any number (404, 400, etc. will match)
-//                    sections.error(data);
-//                })
                 .go();
         },
 
@@ -112,9 +102,6 @@
 
                getData.toggleLoading('#spinner-genre');
 
-//              var genreUrl = config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc';
-//              console.log(genreUrl);
-
               aja()
                 .url(config.genrePage + checked + '&' + config.apiKey + '&sort_by=popularity.desc')
                 .on('success', function(data) {
@@ -127,22 +114,6 @@
         toggleLoading: function(id) {
             document.querySelector(id).classList.toggle("hide");
         }
-
-//        error: function() {
-//            var error = config.errorSection;
-//            var errorUrl = "http://127.0.0.1:52443/opdracht6-api/index.html#404";
-//
-//            //aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
-//            aja()
-//                .url(errorUrl)
-//                .on('success', function(data) {
-//                    sections.error(data);
-//                })
-//                .on('40x', function(response){// 'x' means any number (404, 400, etc. will match)
-//                    sections.error(data);
-//                })
-//                .go();
-//        },
     };
 
     var sections = {
@@ -219,15 +190,6 @@
 
             document.getElementById('showGenre').insertAdjacentHTML('beforeend', results);
         },
-
-//        error: function(data) {
-//            var htmlError = '';
-//
-//
-//                htmlError += '<div class="errorResult"> + <h2>Oops, Something went wrong!</h2><img src= "img/404.svg"/> </div></a>';
-//
-//            document.getElementById('showError').innerHTML = htmlError;
-//        },
 
         toggle: function(route /* this is location.hash */ ) {
             var sections = document.querySelectorAll('main section');
