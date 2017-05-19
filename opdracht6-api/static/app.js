@@ -62,6 +62,10 @@
             var queryResult = document.getElementById('queryResult');
             var searchInput = document.getElementById('user-input-field').value;
 
+            document.querySelectorAll('.searchResult, .noResults').forEach(function(result) {
+                    result.parentNode.removeChild(result);
+                });
+
             this.toggleLoading('#spinner-search');
 
             // aja is the mini library.  With .url you tell where to get the info.  With .on you say: if successfull load the data in function(data).
@@ -118,27 +122,44 @@
 
     var sections = {
         overview: function(data) {
+
+                var results = data.results.length > 0 ? data.results.reduce(function(accumulator, element) {
+                var posterPath = element.poster_path ? config.posterUrl + element.poster_path : "img/noposter.png";
+                return accumulator + `
+                    <div class="searchResult" id="${element.id}">
+                        <a href="#movies/${element.id}">
+                            <h1>${element.title}</h1>
+                            <img src= "${posterPath}"/>
+                        </a>
+                    </div>`;
+            }, '') : `<div class="noResults">
+                        <h2>No results found</h2>
+                        <img src="img/noresults.svg"/>
+                      </div>`;
+
+
+            document.getElementById('queryResult').insertAdjacentHTML('beforeend', results);
             // render html with data
-            var html = '';
-
-            if (data.results.length === 0) {
-                         var html = '';
-                        html += '<div class="noResults"><h2>No results found</h2> <img src= "img/noresults.svg"> </div>';
-                        console.log ("geen resultaat");
-                    }
-            // With this function you tell what you want to show when a query is requested.
-            data.results.map(function(element) {
-                var posterPath;
-                if (element.poster_path !== null) {
-                    posterPath = config.posterUrl + element.poster_path
-                } else {
-                    posterPath = "img/noposter.png";
-                }
-
-                html += '<div class="searchResult" id="' + element.id + '"> <a href="#movies/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
-            });
-
-            document.getElementById('queryResult').innerHTML = html;
+//            var html = '';
+//
+//            if (data.results.length === 0) {
+//                         var html = '';
+//                        html += '<div class="noResults"><h2>No results found</h2> <img src= "img/noresults.svg"> </div>';
+//                        console.log ("geen resultaat");
+//                    }
+//            // With this function you tell what you want to show when a query is requested.
+//            data.results.map(function(element) {
+//                var posterPath;
+//                if (element.poster_path !== null) {
+//                    posterPath = config.posterUrl + element.poster_path
+//                } else {
+//                    posterPath = "img/noposter.png";
+//                }
+//
+//                html += '<div class="searchResult" id="' + element.id + '"> <a href="#movies/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
+//            });
+//
+//            document.getElementById('queryResult').innerHTML = html;
         },
 
         details: function(detail) {
@@ -187,6 +208,7 @@
 //
 //                htmlGenre += '<div class="genreResult" id="' + element.id + '"> <a href="#genre/' + element.id + '"><h1>' + element.title + '</h1> <img src= "' + posterPath + '"/> </div></a>';
 //            });
+//            document.getElementById('showGenre').innerHTML = htmlGenre;
 
             document.getElementById('showGenre').insertAdjacentHTML('beforeend', results);
         },
