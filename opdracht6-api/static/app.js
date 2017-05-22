@@ -173,7 +173,7 @@
                 posterPath = "img/noposter.png";
             }
 
-            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '" alt= "Movie poster '+ detail.title +'"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="javascript:history.back()"> Go back to overview</a> </div> </div>';
+            htmlDetail += '<div class="buttonDiv"><button class="button"><a href="javascript:history.back()" class="overview"> &#8592; Go back to overview</a></button></div><div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '" alt= "Movie poster '+ detail.title +'"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="javascript:history.back()"> Go back to overview</a> </div> </div>';
 
             console.log(htmlDetail);
 

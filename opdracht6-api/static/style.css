@@ -230,7 +230,7 @@ input[name="emotion"]:checked + label svg {
 }
 
 #showDetails {
-    width: 90vw;
+    width: 80%;
 }
 
 .detailResult h1 {
