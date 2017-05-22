@@ -1,5 +1,5 @@
 /* Algemeen */
-body {
+body{
     background-color: #333333;
     box-sizing: border-box;
     color: white;
@@ -12,12 +12,12 @@ body {
     padding: 0;
 }
 
-h1, h2 {
+h1, h2{
     margin: 0;
     padding: 0;
 }
 
-h2 {
+h2{
     font-size: 1.5em;
     margin-bottom: 0.5em;
     text-transform: uppercase;
@@ -28,14 +28,14 @@ form {
 }
 
 /* Navigatie */
-#logo {
+#logo{
     align-items: center;
     display: flex;
     margin-left: 2%;
     margin-right: 1%;
 }
 
-nav {
+nav{
     background: #1EB4F4;
     display: flex;
     height: 5em;
@@ -45,14 +45,14 @@ nav {
     width: 100vw;
 }
 
-nav ul {
+nav ul{
     align-items: center;
     display: flex;
     flex-direction: row;
     padding: 0;
 }
 
-nav ul li {
+nav ul li{
     color: white;
     display: inline;
     flex-direction: row;
@@ -61,16 +61,18 @@ nav ul li {
     width: 100%;
 }
 
-nav ul li a {
+nav ul li a{
     color: white;
     font-size: 1.4em;
     font-weight: 400;
     text-decoration: none;
 }
 
+
 .hide {
     display: none;
 }
+
 
 /* Search */
 section {
@@ -92,7 +94,7 @@ div {
     width: 100vw;
 }
 
-.login, .startGenre {
+.login {
     align-items: center;
     display: flex;
     width: 100%;
@@ -105,7 +107,7 @@ div {
 }
 
 /* Userquery */
-button[type="submit"] {
+button[type="submit"], .button, .intro {
     height: 2.7em;
     background: none;
     border: 0.2em white solid;
@@ -149,13 +151,13 @@ article {
     color: white;
 }
 
-.searchResult img, .genreResult img {
+.searchResult img, .genreResult a img {
     box-shadow: 5px 3px 9px #1b1b1b;
     height: 34em;
     width: 100%;
 }
 
-.noResults {
+noResults {
     margin-top: 0;
 }
 
@@ -163,6 +165,9 @@ article {
     margin-left: 3em;
 }
 
+.startGenre {
+    align-items: center;
+}
 /* Emoticons */
 genreRB {
     margin-top: 0.5em;
@@ -204,27 +209,28 @@ input[name="emotion"]:checked + label svg {
 .detailResult {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-grow: 1;
     align-content: space-around;
-/*    align-items: center;*/
     flex-basis: 22em;
     background-color: black;
     border: none;
     justify-content: flex-start;
+    margin-top: 4em;
+    margin-bottom: 1em;
 }
 
-.detailResult img {
+.detailResult img{
     max-height: 30em;
 }
 
-.detailResult .detailBlok {
+.detailResult .detailBlok{
     padding-left: 2em;
     width: 50%;
 }
 
 #showDetails {
-    width: 80%;
+    width: 90vw;
 }
 
 .detailResult h1 {
@@ -246,6 +252,29 @@ input[name="emotion"]:checked + label svg {
     color: #1EB4F4;
     margin-bottom: 0;
     font-size: 1em;
+}
+
+.buttonDiv{
+    margin-bottom: -1em;
+    margin-top: 1em;
+    width: 100vw;
+}
+
+.button{
+    align-self: center;
+    margin-bottom: -2em;
+    width: 90%;
+}
+
+.overview {
+    color: white;
+    margin-bottom: 0;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.overview{
+    width: 30%;
 }
 
 /* Loading spinner source:http://tobiasahlin.com/spinkit/ */
@@ -307,4 +336,42 @@ dialog {
 }
 dialog:not([open]) {
     display: none;
+}
+
+@media (min-width: 42em){
+    .detailResult{
+        flex-direction: row;
+
+    }
+
+    .detailResult .detailBlok{
+        width: 50%;
+    }
+
+    .button{
+        align-self: flex-end;
+        width: 50%;
+    }
+
+    .buttonDiv {
+        width: 90vw;
+    }
+
+    .searchResult, .genreResult {
+        flex-basis: 15em;
+    }
+
+    .detailResult {
+        margin-bottom: 4em;
+    }
+}
+
+@media (min-width: 65em) {
+    .showDetails {
+        width: 60%;
+    }
+
+    .searchResult, .genreResult {
+        flex-basis: 22em;
+    }
 }

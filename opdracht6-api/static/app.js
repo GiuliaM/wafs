@@ -129,7 +129,7 @@
                     <div class="searchResult" id="${element.id}">
                         <a href="#movies/${element.id}">
                             <h1>${element.title}</h1>
-                            <img src= "${posterPath}"/>
+                            <img src= "${posterPath}" alt= "Movie poster ${element.title}"/>
                         </a>
                     </div>`;
             }, '') : `<div class="noResults">
@@ -173,7 +173,7 @@
                 posterPath = "img/noposter.png";
             }
 
-            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="javascript:history.back()"> Go back to overview</a> </div> </div>';
+            htmlDetail += '<div class="detailResult" id="' + detail.id + '"><img src= "' + posterPath + '" alt= "Movie poster '+ detail.title +'"/> <div class="detailBlok"><h1>' + detail.title + '</h1> <h2>Summary</h2><p>'+ detail.overview +'</p> <h2>Budget</h2><p>'+ detail.budget +'</p> <h2>Grade</h2> <p>'+ detail.vote_average +'</p> <a href="javascript:history.back()"> Go back to overview</a> </div> </div>';
 
             console.log(htmlDetail);
 
@@ -190,7 +190,7 @@
                     <div class="genreResult" id="${element.id}">
                         <a href="#genre/${element.id}">
                             <h1>${element.title}</h1>
-                            <img src= "${posterPath}"/>
+                            <img src= "${posterPath}" alt= "Movie poster ${element.title}"/>
                         </a>
                     </div>`;
             }, ''); // '' kan ook een 0, [] etc zijn bijv 1000 --> '' is de dom/accumulator
